@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html class="writer-html5" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="../../../img/favicon.ico" rel="shortcut icon"/>
+<title>Investigating the Range as a Function of the Angle of Projection - Physics and Mathematics</title>
+<link href="../../../css/theme.css" rel="stylesheet"/>
+<link href="../../../css/theme_extra.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
+<script>
+        // Current page data
+        var mkdocs_page_name = "Investigating the Range as a Function of the Angle of Projection";
+        var mkdocs_page_input_path = "1 Physics/1 Mechanics/Problem_1.md";
+        var mkdocs_page_url = null;
+      </script>
+<!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/rust.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+<script>hljs.highlightAll();</script>
+</head>
+<body class="wy-body-for-nav" role="document">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side stickynav" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../.."> Physics and Mathematics
+        </a><div role="search">
+<form action="../../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" title="Type search term here" type="text"/>
+</form>
+</div>
+</div>
+<div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../..">Introduction</a>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">1 Physics</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal current">1 Mechanics</a>
+<ul class="current">
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Investigating the Range as a Function of the Angle of Projection</a>
+<ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#1-theoretical-foundation">1. Theoretical Foundation</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#deriving-the-equations-of-motion">Deriving the Equations of Motion</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#time-of-flight">Time of Flight</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#2-analysis-of-the-range">2. Analysis of the Range</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#range-equation">Range Equation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#parameter-influence">Parameter Influence</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#3-practical-applications">3. Practical Applications</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#4-implementation">4. Implementation</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Problem_2/">Problem 2</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal">2 Gravity</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../2%20Gravity/Problem_1/">Problem 1</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../2%20Gravity/Problem_2/">Problem 2</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../2%20Gravity/Problem_3/">Problem 3</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal">3 Waves</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../3%20Waves/Problem_1/">Problem 1</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal">4 Electromagnetism</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../4%20Electromagnetism/Problem_1/">Problem 1</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal">5 Circuits</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../5%20Circuits/Problem_1/">Problem 1</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal">6 Statistics</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../6%20Statistics/Problem_1/">Problem 1</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../6%20Statistics/Problem_2/">Problem 2</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal">7 Measurements</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../7%20Measurements/Problem_1/">Problem 1</a>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">2 Mathematics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../2%20Mathematics/1%20Linear_algebra/">Linear Algebra</a>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2%20Mathematics/2%20Analytic_geometry/">Analytic geometry</a>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2%20Mathematics/3%20Calculus/">Calculus</a>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">3 Discret Mathematics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal">1 Set Theory and ...</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/1%20Set%20Theory%20and%20.../_02%20Set_Theory/">Set Theory</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/1%20Set%20Theory%20and%20.../_03%20Relations/">Relations</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/1%20Set%20Theory%20and%20.../_04%20Functions/">Functions</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal">2 Number Theory and ...</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/2%20Number%20Theory%20and%20.../_05%20Combinatorics/">Combinatorics</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/2%20Number%20Theory%20and%20.../_08%20Number_Theory/">Number Theory</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal">3 Recurrence and ...</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/3%20Recurrence%20and%20.../_06%20Sequences_and_Series/">Sequences and Series</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/3%20Recurrence%20and%20.../_07%20Induction/">Induction</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/3%20Recurrence%20and%20.../_09%20Recurrence/">Recurrence</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal">4 Graph Theory and ...</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/4%20Graph%20Theory%20and%20.../_10%20Graph_Theory/">Graph Theory</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal">5 Logic</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/5%20Logic/_01%20Logic/">Logic</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="Mobile navigation menu" class="wy-nav-top" role="navigation">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../..">Physics and Mathematics</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content"><div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
+<li class="breadcrumb-item">1 Physics</li>
+<li class="breadcrumb-item">1 Mechanics</li>
+<li class="breadcrumb-item active">Investigating the Range as a Function of the Angle of Projection</li>
+<li class="wy-breadcrumbs-aside">
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div class="section" itemprop="articleBody">
+<h1 id="investigating-the-range-as-a-function-of-the-angle-of-projection">Investigating the Range as a Function of the Angle of Projection</h1>
+<p>Projectile motion is a classic yet endlessly fascinating topic in physics. It’s the perfect blend of simplicity and depth—starting with basic principles, we can unlock a wealth of understanding about how objects move through the air. Our goal here is to analyze how the horizontal range of a projectile depends on its launch angle, explore the influence of various parameters, and bring it to life with a computational simulation.</p>
+<h2 id="1-theoretical-foundation">1. Theoretical Foundation</h2>
+<h3 id="deriving-the-equations-of-motion">Deriving the Equations of Motion</h3>
+<p>Let’s start from the ground up with Newton’s second law. For a projectile launched with an initial velocity <span class="arithmatex">\(v_0\)</span> at an angle <span class="arithmatex">\(\theta\)</span> from the horizontal, we assume no air resistance (we’ll revisit this assumption later). The only force acting is gravity, with acceleration <span class="arithmatex">\(g\)</span> downward.</p>
+<ul>
+<li><strong>Coordinate System</strong>: Define <span class="arithmatex">\(x\)</span> as the horizontal direction and <span class="arithmatex">\(y\)</span> as vertical, with the origin at the launch point (<span class="arithmatex">\(y_0 = 0\)</span> for now).</li>
+<li><strong>Forces</strong>: No horizontal force (<span class="arithmatex">\(F_x = 0\)</span>), vertical force is gravity (<span class="arithmatex">\(F_y = -mg\)</span>).</li>
+</ul>
+<p>The accelerations are:
+- <span class="arithmatex">\(a_x = \frac{d^2x}{dt^2} = 0\)</span>
+- <span class="arithmatex">\(a_y = \frac{d^2y}{dt^2} = -g\)</span></p>
+<p>Integrate these differential equations:
+- Horizontal: <span class="arithmatex">\(\frac{dx}{dt} = v_x = v_0 \cos\theta\)</span> (constant, since <span class="arithmatex">\(a_x = 0\)</span>)
+  - <span class="arithmatex">\(x(t) = (v_0 \cos\theta) t\)</span>
+- Vertical: <span class="arithmatex">\(\frac{dy}{dt} = v_y = v_0 \sin\theta - gt\)</span>
+  - <span class="arithmatex">\(y(t) = (v_0 \sin\theta) t - \frac{1}{2} g t^2\)</span></p>
+<p>These are the parametric equations of motion. The projectile follows a parabolic trajectory, and the family of solutions depends on <span class="arithmatex">\(v_0\)</span>, <span class="arithmatex">\(\theta\)</span>, and <span class="arithmatex">\(g\)</span>. If we include an initial height <span class="arithmatex">\(y_0\)</span>, the vertical equation becomes:
+- <span class="arithmatex">\(y(t) = y_0 + (v_0 \sin\theta) t - \frac{1}{2} g t^2\)</span></p>
+<h3 id="time-of-flight">Time of Flight</h3>
+<p>The projectile hits the ground when <span class="arithmatex">\(y(t) = 0\)</span>. For <span class="arithmatex">\(y_0 = 0\)</span>:
+- <span class="arithmatex">\(0 = (v_0 \sin\theta) t - \frac{1}{2} g t^2\)</span>
+- Factor out <span class="arithmatex">\(t\)</span>: <span class="arithmatex">\(t [v_0 \sin\theta - \frac{1}{2} g t] = 0\)</span>
+- Solutions: <span class="arithmatex">\(t = 0\)</span> (launch) or <span class="arithmatex">\(t = \frac{2 v_0 \sin\theta}{g}\)</span> (time of flight, <span class="arithmatex">\(T\)</span>).</p>
+<h2 id="2-analysis-of-the-range">2. Analysis of the Range</h2>
+<h3 id="range-equation">Range Equation</h3>
+<p>The horizontal range <span class="arithmatex">\(R\)</span> is the distance traveled when <span class="arithmatex">\(y = 0\)</span>:
+- <span class="arithmatex">\(R = x(T) = (v_0 \cos\theta) \cdot \frac{2 v_0 \sin\theta}{g}\)</span>
+- Using the identity <span class="arithmatex">\(\sin(2\theta) = 2 \sin\theta \cos\theta\)</span>:
+  - <span class="arithmatex">\(R = \frac{v_0^2 \sin(2\theta)}{g}\)</span></p>
+<p>This is the key relationship! The range depends on:
+- <span class="arithmatex">\(\theta\)</span>: Through <span class="arithmatex">\(\sin(2\theta)\)</span>, which peaks at <span class="arithmatex">\(2\theta = 90^\circ\)</span>, so <span class="arithmatex">\(\theta = 45^\circ\)</span> maximizes <span class="arithmatex">\(R\)</span>.
+- <span class="arithmatex">\(v_0\)</span>: Quadratically, so doubling the speed quadruples the range.
+- <span class="arithmatex">\(g\)</span>: Inversely, so stronger gravity reduces range.</p>
+<h3 id="parameter-influence">Parameter Influence</h3>
+<ul>
+<li><strong>Angle (<span class="arithmatex">\(\theta\)</span>)</strong>: <span class="arithmatex">\(R = 0\)</span> at <span class="arithmatex">\(\theta = 0^\circ\)</span> or <span class="arithmatex">\(90^\circ\)</span> (straight along or up), with a maximum at <span class="arithmatex">\(45^\circ\)</span>.</li>
+<li><strong>Initial Velocity (<span class="arithmatex">\(v_0\)</span>)</strong>: Higher <span class="arithmatex">\(v_0\)</span> stretches the parabola, increasing <span class="arithmatex">\(R\)</span>.</li>
+<li><strong>Gravity (<span class="arithmatex">\(g\)</span>)</strong>: On the Moon (<span class="arithmatex">\(g \approx 1.62 \, \text{m/s}^2\)</span>), range is much larger than on Earth (<span class="arithmatex">\(g \approx 9.81 \, \text{m/s}^2\)</span>).</li>
+</ul>
+<h2 id="3-practical-applications">3. Practical Applications</h2>
+<p>This model applies to:
+- <strong>Sports</strong>: A soccer ball kicked at an angle—45° gives the farthest distance on flat ground.
+- <strong>Engineering</strong>: Cannonball trajectories or water jets from a hose.
+- <strong>Astrophysics</strong>: Simplified rocket launches (ignoring air resistance initially).</p>
+<p>For uneven terrain (e.g., <span class="arithmatex">\(y = 0\)</span> at a different height), adjust the time-of-flight equation. With air resistance, the equations become nonlinear, requiring numerical solutions—think of a golf ball’s dimples reducing drag.</p>
+<h2 id="4-implementation">4. Implementation</h2>
+<p>Let’s simulate this in Python using NumPy and Matplotlib.</p>
+<p>```python
+import numpy as np
+import matplotlib.pyplot as plt</p>
+<h1 id="parameters">Parameters</h1>
+<p>g = 9.81  # m/s^2
+v0_values = [10, 20, 30]  # initial velocities (m/s)
+theta_deg = np.linspace(0, 90, 91)  # angles from 0 to 90 degrees
+theta_rad = np.radians(theta_deg)</p>
+<h1 id="range-function">Range function</h1>
+<p>def range_proj(v0, theta, g):
+    return (v0**2 * np.sin(2 * theta)) / g</p>
+<h1 id="compute-ranges-for-different-v0">Compute ranges for different v0</h1>
+<p>ranges = {v0: range_proj(v0, theta_rad, g) for v0 in v0_values}</p>
+<h1 id="plotting">Plotting</h1>
+<p>plt.figure(figsize=(10, 6))
+for v0, R in ranges.items():
+    plt.plot(theta_deg, R, label=f'v0 = {v0} m/s')
+plt.xlabel('Angle of Projection (degrees)')
+plt.ylabel('Range (meters)')
+plt.title('Range vs. Angle of Projection')
+plt.legend()
+plt.grid(True)
+plt.show()</p>
+<h1 id="highlight-maximum-range-at-45-degrees">Highlight maximum range at 45 degrees</h1>
+<p>for v0 in v0_values:
+    R_max = range_proj(v0, np.radians(45), g)
+    print(f"Max range for v0 = {v0} m/s at 45°: {R_max:.2f} m")</p>
+</div>
+</div><footer>
+<div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
+<a class="btn btn-neutral float-left" href="../../.." title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+<a class="btn btn-neutral float-right" href="../Problem_2/" title="Problem 2">Next <span class="icon icon-circle-arrow-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<!-- Copyright etc -->
+</div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+</div>
+</div>
+</section>
+</div>
+<div aria-label="Versions" class="rst-versions" role="note">
+<span class="rst-current-version" data-toggle="rst-current-version">
+<span><a href="../../.." style="color: #fcfcfc">« Previous</a></span>
+<span><a href="../Problem_2/" style="color: #fcfcfc">Next »</a></span>
+</span>
+</div>
+<script src="../../../js/jquery-3.6.0.min.js"></script>
+<script>var base_url = "../../..";</script>
+<script src="../../../js/theme_extra.js"></script>
+<script src="../../../js/theme.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="../../../search/main.js"></script>
+<script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+</body>
+</html>
