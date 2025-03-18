@@ -199,10 +199,6 @@ When you run this code, it will create two images:
 ![alt text](download.png)
 2. `kepler_third_law.png` - A plot showing the T² vs r³ relationship
 ![alt text](<download (1).png>)
-For GitHub Pages, you'll need to:
-1. Run this code locally to generate the images
-2. Include these images in your repository
-3. Reference them in your Markdown using: `![Solar System Orbits](solar_system_orbits.png)` and `![Kepler's Third Law](kepler_third_law.png)`
 
 ## 5. Extending to Elliptical Orbits
 
