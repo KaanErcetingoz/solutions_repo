@@ -15,7 +15,7 @@ Projectile motion follows Newton’s second law, and we assume motion under cons
 - The vertical motion follows:
   $$ y = v_0 \sin(\theta) t - \frac{1}{2} g t^2 $$
   
-Solving for the time of flight when the projectile returns to the ground ($y=0$):
+Solving for the time of flight when the projectile returns to the ground ($$y=0$$):
 
 $$ t_f = \frac{2 v_0 \sin(\theta)}{g} $$
 
@@ -24,14 +24,14 @@ The range, which is the horizontal distance traveled, is given by:
 $$ R = v_0 \cos(\theta) t_f = \frac{v_0^2 \sin(2\theta)}{g} $$
 
 ### Family of Solutions
-- The range is maximized when $ \theta = 45^\circ $, as $ \sin(2\theta) $ reaches its peak at this angle.
-- Different values of $ v_0 $ and $ g $ shift the entire curve up or down, affecting the overall range.
+- The range is maximized when $$\theta = 45^\circ$$, as $$\sin(2\theta)$$ reaches its peak at this angle.
+- Different values of $$v_0$$ and $$g$$ shift the entire curve up or down, affecting the overall range.
 
 ## 2. Analysis of the Range
-- The function $ R(\theta) = \frac{v_0^2 \sin(2\theta)}{g} $ follows a sinusoidal form, reaching its peak at 45 degrees.
-- Increasing $ v_0 $ increases the range quadratically.
-- A higher gravitational acceleration $ g $ decreases the range.
-- If the projectile is launched from a height $ h $, the range expression becomes more complex:
+- The function $$R(\theta) = \frac{v_0^2 \sin(2\theta)}{g}$$ follows a sinusoidal form, reaching its peak at 45 degrees.
+- Increasing $$v_0$$ increases the range quadratically.
+- A higher gravitational acceleration $$g$$ decreases the range.
+- If the projectile is launched from a height $$h$$, the range expression becomes more complex:
   $$ R = \frac{v_0 \cos(\theta)}{g} \left( v_0 \sin(\theta) + \sqrt{(v_0 \sin(\theta))^2 + 2 g h} \right) $$
 
 ## 3. Practical Applications
@@ -63,7 +63,7 @@ def projectile_range(v0, g):
 # Example usage
 projectile_range(v0=20, g=9.81)
 ```
-![alt text](Unknown.png)
+
 ## 5. Discussion on Model Limitations
 - The model assumes no air resistance, which is unrealistic for real-world projectiles.
 - Wind and drag force significantly alter projectile motion.
