@@ -77,7 +77,7 @@ def projectile_range(v0, g):
 # Example usage
 projectile_range(v0=20, g=9.81)
 ```
-
+![alt text](<download (2).png>)
 ## 5. Discussion on Model Limitations
 - The model assumes no air resistance, which is unrealistic for real-world projectiles.
 - Wind and drag force significantly alter projectile motion.
