@@ -1,100 +1,74 @@
 # Investigating the Range as a Function of the Angle of Projection
 
-Projectile motion is a classic yet endlessly fascinating topic in physics. It’s the perfect blend of simplicity and depth—starting with basic principles, we can unlock a wealth of understanding about how objects move through the air. Our goal here is to analyze how the horizontal range of a projectile depends on its launch angle, explore the influence of various parameters, and bring it to life with a computational simulation.
+## Motivation
+Projectile motion, while seemingly simple, offers a rich playground for exploring fundamental principles of physics. The problem is straightforward: analyze how the range of a projectile depends on its angle of projection. Yet, beneath this simplicity lies a complex and versatile framework. The equations governing projectile motion involve both linear and quadratic relationships, making them accessible yet deeply insightful.
+
+What makes this topic particularly compelling is the number of free parameters involved in these equations, such as initial velocity, gravitational acceleration, and launch height. These parameters give rise to a diverse set of solutions that can describe a wide array of real-world phenomena, from the arc of a soccer ball to the trajectory of a rocket.
 
 ## 1. Theoretical Foundation
+### Governing Equations
+Projectile motion follows Newton’s second law, and we assume motion under constant acceleration due to gravity, ignoring air resistance.
 
-### Deriving the Equations of Motion
+- The horizontal motion is governed by:
+  $$ x = v_0 \cos(\theta) t $$
+  
+- The vertical motion follows:
+  $$ y = v_0 \sin(\theta) t - \frac{1}{2} g t^2 $$
+  
+Solving for the time of flight when the projectile returns to the ground ($y=0$):
 
-Let’s start from the ground up with Newton’s second law. For a projectile launched with an initial velocity $v_0$ at an angle $\theta$ from the horizontal, we assume no air resistance (we’ll revisit this assumption later). The only force acting is gravity, with acceleration $g$ downward.
+$$ t_f = \frac{2 v_0 \sin(\theta)}{g} $$
 
-- **Coordinate System**: Define $x$ as the horizontal direction and $y$ as vertical, with the origin at the launch point ($y_0 = 0$ for now).
-- **Forces**: No horizontal force ($F_x = 0$), vertical force is gravity ($F_y = -mg$).
+The range, which is the horizontal distance traveled, is given by:
 
-The accelerations are:
-- $a_x = \frac{d^2x}{dt^2} = 0$
-- $a_y = \frac{d^2y}{dt^2} = -g$
+$$ R = v_0 \cos(\theta) t_f = \frac{v_0^2 \sin(2\theta)}{g} $$
 
-Integrate these differential equations:
-- Horizontal: $\frac{dx}{dt} = v_x = v_0 \cos\theta$ (constant, since $a_x = 0$)
-  - $x(t) = (v_0 \cos\theta) t$
-- Vertical: $\frac{dy}{dt} = v_y = v_0 \sin\theta - gt$
-  - $y(t) = (v_0 \sin\theta) t - \frac{1}{2} g t^2$
-
-These are the parametric equations of motion. The projectile follows a parabolic trajectory, and the family of solutions depends on $v_0$, $\theta$, and $g$. If we include an initial height $y_0$, the vertical equation becomes:
-- $y(t) = y_0 + (v_0 \sin\theta) t - \frac{1}{2} g t^2$
-
-### Time of Flight
-
-The projectile hits the ground when $y(t) = 0$. For $y_0 = 0$:
-- $0 = (v_0 \sin\theta) t - \frac{1}{2} g t^2$
-- Factor out $t$: $t [v_0 \sin\theta - \frac{1}{2} g t] = 0$
-- Solutions: $t = 0$ (launch) or $t = \frac{2 v_0 \sin\theta}{g}$ (time of flight, $T$).
+### Family of Solutions
+- The range is maximized when $ \theta = 45^\circ $, as $ \sin(2\theta) $ reaches its peak at this angle.
+- Different values of $ v_0 $ and $ g $ shift the entire curve up or down, affecting the overall range.
 
 ## 2. Analysis of the Range
-
-### Range Equation
-
-The horizontal range $R$ is the distance traveled when $y = 0$:
-- $R = x(T) = (v_0 \cos\theta) \cdot \frac{2 v_0 \sin\theta}{g}$
-- Using the identity $\sin(2\theta) = 2 \sin\theta \cos\theta$:
-  - $R = \frac{v_0^2 \sin(2\theta)}{g}$
-
-This is the key relationship! The range depends on:
-- $\theta$: Through $\sin(2\theta)$, which peaks at $2\theta = 90^\circ$, so $\theta = 45^\circ$ maximizes $R$.
-- $v_0$: Quadratically, so doubling the speed quadruples the range.
-- $g$: Inversely, so stronger gravity reduces range.
-
-### Parameter Influence
-
-- **Angle ($\theta$)**: $R = 0$ at $\theta = 0^\circ$ or $90^\circ$ (straight along or up), with a maximum at $45^\circ$.
-- **Initial Velocity ($v_0$)**: Higher $v_0$ stretches the parabola, increasing $R$.
-- **Gravity ($g$)**: On the Moon ($g \approx 1.62 \, \text{m/s}^2$), range is much larger than on Earth ($g \approx 9.81 \, \text{m/s}^2$).
+- The function $ R(\theta) = \frac{v_0^2 \sin(2\theta)}{g} $ follows a sinusoidal form, reaching its peak at 45 degrees.
+- Increasing $ v_0 $ increases the range quadratically.
+- A higher gravitational acceleration $ g $ decreases the range.
+- If the projectile is launched from a height $ h $, the range expression becomes more complex:
+  $$ R = \frac{v_0 \cos(\theta)}{g} \left( v_0 \sin(\theta) + \sqrt{(v_0 \sin(\theta))^2 + 2 g h} \right) $$
 
 ## 3. Practical Applications
-
-This model applies to:
-- **Sports**: A soccer ball kicked at an angle—45° gives the farthest distance on flat ground.
-- **Engineering**: Cannonball trajectories or water jets from a hose.
-- **Astrophysics**: Simplified rocket launches (ignoring air resistance initially).
-
-For uneven terrain (e.g., $y = 0$ at a different height), adjust the time-of-flight equation. With air resistance, the equations become nonlinear, requiring numerical solutions—think of a golf ball’s dimples reducing drag.
+- **Sports**: Understanding optimal angles for long jumps, soccer kicks, or basketball shots.
+- **Engineering**: Ballistics and missile trajectory calculations.
+- **Astrophysics**: Studying celestial bodies’ motion in the absence of air resistance.
 
 ## 4. Implementation
-
-Let’s simulate this in Python using NumPy and Matplotlib.
-![alt text](Unknown.png)
+Below is a Python script to simulate and visualize the range as a function of the launch angle.
 
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Parameters
-g = 9.81  # m/s^2
-v0_values = [10, 20, 30]  # initial velocities (m/s)
-theta_deg = np.linspace(0, 90, 91)  # angles from 0 to 90 degrees
-theta_rad = np.radians(theta_deg)
+def projectile_range(v0, g):
+    angles = np.linspace(0, 90, 100)  # Angles in degrees
+    radians = np.radians(angles)  # Convert to radians
+    ranges = (v0**2 * np.sin(2 * radians)) / g  # Compute range
+    
+    plt.figure(figsize=(8, 5))
+    plt.plot(angles, ranges, label=f'Initial Velocity = {v0} m/s')
+    plt.xlabel('Angle of Projection (degrees)')
+    plt.ylabel('Range (m)')
+    plt.title('Projectile Range as a Function of Angle')
+    plt.legend()
+    plt.grid()
+    plt.show()
 
-# Range function
-def range_proj(v0, theta, g):
-    return (v0**2 * np.sin(2 * theta)) / g
+# Example usage
+projectile_range(v0=20, g=9.81)
+```
+![alt text](Unknown.png)
+## 5. Discussion on Model Limitations
+- The model assumes no air resistance, which is unrealistic for real-world projectiles.
+- Wind and drag force significantly alter projectile motion.
+- For high-speed objects, Coriolis effects (due to Earth's rotation) might need to be considered.
+- Uneven terrain or varying gravitational acceleration can affect actual projectile behavior.
 
-# Compute ranges for different v0
-ranges = {v0: range_proj(v0, theta_rad, g) for v0 in v0_values}
-
-# Plotting
-plt.figure(figsize=(10, 6))
-for v0, R in ranges.items():
-    plt.plot(theta_deg, R, label=f'v0 = {v0} m/s')
-plt.xlabel('Angle of Projection (degrees)')
-plt.ylabel('Range (meters)')
-plt.title('Range vs. Angle of Projection')
-plt.legend()
-plt.grid(True)
-plt.show()
-
-
-# Highlight maximum range at 45 degrees
-for v0 in v0_values:
-    R_max = range_proj(v0, np.radians(45), g)
-    print(f"Max range for v0 = {v0} m/s at 45°: {R_max:.2f} m")
+## 6. Conclusion
+This study highlights the interplay between angle, velocity, and gravity in determining a projectile’s range. The insights gained are applicable across sports, engineering, and even astrophysics. Future work can involve adding air resistance to the model for a more realistic simulation.
