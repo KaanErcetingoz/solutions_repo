@@ -93,6 +93,7 @@ plt.legend()
 plt.grid(True)
 plt.show()
 
+
 # Highlight maximum range at 45 degrees
 for v0 in v0_values:
     R_max = range_proj(v0, np.radians(45), g)
