@@ -196,8 +196,9 @@ print(f"Difference: {abs(calculated_mass - M_sun)/M_sun*100:.4f}%")
 When you run this code, it will create two images:
 
 1. `solar_system_orbits.png` - A visualization of planetary orbits
+![alt text](download.png)
 2. `kepler_third_law.png` - A plot showing the T² vs r³ relationship
-
+![alt text](<download (1).png>)
 For GitHub Pages, you'll need to:
 1. Run this code locally to generate the images
 2. Include these images in your repository
