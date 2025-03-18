@@ -193,7 +193,6 @@ print(f"Calculated Sun's mass: {calculated_mass:.3e} kg")
 print(f"Actual Sun's mass:     {M_sun:.3e} kg")
 print(f"Difference: {abs(calculated_mass - M_sun)/M_sun*100:.4f}%")
 ```
-![alt text](download.png)
 When you run this code, it will create two images:
 
 1. `solar_system_orbits.png` - A visualization of planetary orbits
