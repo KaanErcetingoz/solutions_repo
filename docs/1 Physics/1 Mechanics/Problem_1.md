@@ -63,6 +63,7 @@ For uneven terrain (e.g., $y = 0$ at a different height), adjust the time-of-fli
 ## 4. Implementation
 
 Let’s simulate this in Python using NumPy and Matplotlib.
+![alt text](Unknown.png)
 
 ```python
 import numpy as np
