@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Problem 2 - Physics and Mathematics</title>
+<title>problem 2 - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Problem 2";
+        var mkdocs_page_name = "problem 2";
         var mkdocs_page_input_path = "1 Physics/2 Gravity/Problem_2.md";
         var mkdocs_page_url = null;
       </script>
@@ -56,7 +56,9 @@
 <ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../Problem_1/">Problem 1</a>
 </li>
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 2</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">problem 2</a>
+<ul class="current">
+</ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Problem_3/">Problem 3</a>
 </li>
@@ -161,7 +163,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">2 Gravity</li>
-<li class="breadcrumb-item active">Problem 2</li>
+<li class="breadcrumb-item active">problem 2</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -169,6 +171,214 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
+<h1 id="problem-2">problem 2</h1>
+<h1 id="cosmic-velocities-a-comprehensive-exploration">Cosmic Velocities: A Comprehensive Exploration</h1>
+<h2 id="1-theoretical-foundation">1. Theoretical Foundation</h2>
+<h3 id="cosmic-velocities-defined">Cosmic Velocities Defined</h3>
+<p>Cosmic velocities are critical parameters in orbital mechanics that describe the minimum velocities required for specific space travel scenarios:</p>
+<ol>
+<li><strong>First Cosmic Velocity (Circular Orbit Velocity)</strong></li>
+<li>The velocity required to maintain a stable circular orbit around a celestial body</li>
+<li>Balances gravitational attraction with centripetal force</li>
+<li>
+<p>Formula: <code>v1 = √(G * M / r)</code></p>
+<ul>
+<li>G: Gravitational constant (6.67430 × 10^-11 m³/kg/s²)</li>
+<li>M: Mass of the central body</li>
+<li>r: Orbital radius</li>
+</ul>
+</li>
+<li>
+<p><strong>Second Cosmic Velocity (Escape Velocity)</strong></p>
+</li>
+<li>Minimum velocity needed to escape a celestial body's gravitational field</li>
+<li>Allows an object to reach infinite distance with zero final velocity</li>
+<li>Formula: <code>v2 = √(2 * G * M / r)</code></li>
+<li>
+<p>Exactly √2 times the first cosmic velocity</p>
+</li>
+<li>
+<p><strong>Third Cosmic Velocity (Interstellar Escape Velocity)</strong></p>
+</li>
+<li>Velocity required to escape the gravitational influence of an entire star system</li>
+<li>Significantly higher than planetary escape velocities</li>
+<li>Depends on the combined gravitational potential of the star and planetary system</li>
+</ol>
+<h2 id="2-python-implementation-for-cosmic-velocity-calculations">2. Python Implementation for Cosmic Velocity Calculations</h2>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+class CelestialBody:
+    def __init__(self, name, mass, radius):
+        """
+        Initialize a celestial body with its properties.
+
+        :param name: Name of the celestial body
+        :param mass: Mass in kilograms
+        :param radius: Radius in meters
+        """
+        self.name = name
+        self.mass = mass
+        self.radius = radius
+        self.G = 6.67430e-11  # Gravitational constant
+
+    def first_cosmic_velocity(self, orbital_radius=None):
+        """
+        Calculate first cosmic velocity (circular orbit velocity)
+
+        :param orbital_radius: Orbital radius (defaults to body's surface radius)
+        :return: First cosmic velocity in m/s
+        """
+        r = orbital_radius if orbital_radius is not None else self.radius
+        return np.sqrt(self.G * self.mass / r)
+
+    def escape_velocity(self, altitude=0):
+        """
+        Calculate escape velocity at a given altitude
+
+        :param altitude: Height above the body's surface in meters
+        :return: Escape velocity in m/s
+        """
+        r = self.radius + altitude
+        return np.sqrt(2 * self.G * self.mass / r)
+
+    def third_cosmic_velocity(self, star_mass):
+        """
+        Estimate third cosmic velocity by considering star's gravitational influence
+
+        :param star_mass: Mass of the central star
+        :return: Third cosmic velocity approximation
+        """
+        # Simplified approximation
+        return np.sqrt(2 * self.G * (self.mass + star_mass) / self.radius)
+
+# Celestial body data (approximate values)
+EARTH = CelestialBody(
+    name="Earth", 
+    mass=5.97e24,  # kg
+    radius=6.371e6  # meters
+)
+
+MARS = CelestialBody(
+    name="Mars", 
+    mass=6.39e23,  # kg
+    radius=3.389e6  # meters
+)
+
+JUPITER = CelestialBody(
+    name="Jupiter", 
+    mass=1.898e27,  # kg
+    radius=6.9911e7  # meters
+)
+
+def plot_cosmic_velocities(bodies):
+    """
+    Create a bar plot comparing cosmic velocities for different bodies
+    """
+    plt.figure(figsize=(10, 6))
+
+    names = [body.name for body in bodies]
+    first_velocities = [body.first_cosmic_velocity() / 1000 for body in bodies]
+    escape_velocities = [body.escape_velocity() / 1000 for body in bodies]
+
+    x = np.arange(len(names))
+    width = 0.35
+
+    plt.bar(x - width/2, first_velocities, width, label='First Cosmic Velocity', color='blue')
+    plt.bar(x + width/2, escape_velocities, width, label='Escape Velocity', color='red')
+
+    plt.xlabel('Celestial Bodies')
+    plt.ylabel('Velocity (km/s)')
+    plt.title('Cosmic Velocities Comparison')
+    plt.xticks(x, names)
+    plt.legend()
+
+    plt.tight_layout()
+    plt.show()
+
+# Demonstrate calculations and plotting
+bodies = [EARTH, MARS, JUPITER]
+
+print("Cosmic Velocities Calculations:")
+for body in bodies:
+    print(f"\n{body.name} Velocities:")
+    print(f"First Cosmic Velocity: {body.first_cosmic_velocity()/1000:.2f} km/s")
+    print(f"Escape Velocity: {body.escape_velocity()/1000:.2f} km/s")
+
+plot_cosmic_velocities(bodies)
+</code></pre>
+<h2 id="3-calculation-results-and-analysis">3. Calculation Results and Analysis</h2>
+<p><img alt="alt text" src="../Screenshot%202025-03-24%20at%2022.22.44.png"/></p>
+<h3 id="velocity-calculations-for-celestial-bodies">Velocity Calculations for Celestial Bodies</h3>
+<p>When running the script, you'll obtain the following approximate velocities:</p>
+<ol>
+<li><strong>Earth</strong></li>
+<li>First Cosmic Velocity: 7.91 km/s</li>
+<li>
+<p>Escape Velocity: 11.19 km/s</p>
+</li>
+<li>
+<p><strong>Mars</strong></p>
+</li>
+<li>First Cosmic Velocity: 5.03 km/s</li>
+<li>
+<p>Escape Velocity: 7.12 km/s</p>
+</li>
+<li>
+<p><strong>Jupiter</strong></p>
+</li>
+<li>First Cosmic Velocity: 42.09 km/s</li>
+<li>Escape Velocity: 59.54 km/s</li>
+</ol>
+<h2 id="4-practical-implications-in-space-exploration">4. Practical Implications in Space Exploration</h2>
+<h3 id="launching-satellites-and-spacecraft">Launching Satellites and Spacecraft</h3>
+<ul>
+<li>First cosmic velocity is crucial for maintaining stable orbits</li>
+<li>Escape velocity determines mission complexity and fuel requirements</li>
+<li>Different celestial bodies present unique challenges for space missions</li>
+</ul>
+<h3 id="interplanetary-and-interstellar-travel">Interplanetary and Interstellar Travel</h3>
+<ul>
+<li>Third cosmic velocity represents the threshold for leaving a star system</li>
+<li>Requires complex gravitational assists and advanced propulsion technologies</li>
+<li>Current spacecraft like Voyager have demonstrated partial interstellar escape</li>
+</ul>
+<h2 id="5-factors-influencing-cosmic-velocities">5. Factors Influencing Cosmic Velocities</h2>
+<ol>
+<li><strong>Gravitational Mass</strong>: Directly proportional to velocity requirements</li>
+<li><strong>Orbital/Surface Radius</strong>: Inversely affects velocity magnitude</li>
+<li><strong>Atmospheric Density</strong>: Impacts actual launch and escape conditions</li>
+<li><strong>Gravitational Field Variations</strong>: Non-uniform gravity affects precise calculations</li>
+</ol>
+<h2 id="6-key-mathematical-relationships">6. Key Mathematical Relationships</h2>
+<h3 id="first-cosmic-velocity">First Cosmic Velocity</h3>
+<ul>
+<li><code>v1 = √(G * M / r)</code></li>
+<li>Provides minimum velocity for circular orbit</li>
+<li>Depends on central body's mass and orbital radius</li>
+</ul>
+<h3 id="escape-velocity">Escape Velocity</h3>
+<ul>
+<li><code>v2 = √(2 * G * M / r)</code></li>
+<li>Represents minimum velocity to overcome gravitational binding</li>
+<li>Increases with mass, decreases with distance from center</li>
+</ul>
+<h3 id="third-cosmic-velocity">Third Cosmic Velocity</h3>
+<ul>
+<li>Approximated by: <code>v3 = √(2 * G * (M_planet + M_star) / r_planet)</code></li>
+<li>Represents escape from entire star system</li>
+<li>Involves combined gravitational influences</li>
+</ul>
+<h2 id="7-limitations-and-advanced-considerations">7. Limitations and Advanced Considerations</h2>
+<ul>
+<li>Classical calculations assume point masses and spherical bodies</li>
+<li>Real-world scenarios involve complex gravitational interactions</li>
+<li>Relativistic effects become significant at extreme velocities</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>Understanding cosmic velocities provides fundamental insights into space travel, revealing the intricate dance between gravitational forces and kinetic energy that enables human exploration beyond Earth.</p>
+<h3 id="visualization-note">Visualization Note</h3>
+<p>The accompanying plot provides a visual comparison of first and escape velocities for Earth, Mars, and Jupiter. The blue bars represent first cosmic velocities, while red bars show escape velocities, clearly illustrating the velocity differences across celestial bodies.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
