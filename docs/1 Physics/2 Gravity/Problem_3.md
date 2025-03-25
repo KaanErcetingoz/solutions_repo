@@ -145,7 +145,3 @@ The script outputs the specific energy for each case:
 ## Conclusion
 
 This simulation demonstrates how initial velocity determines a payload’s fate near Earth. The numerical approach provides a practical tool for visualizing and analyzing trajectories, which can be enhanced with factors like atmospheric drag or multi-body effects for real-world applications. The results align with orbital mechanics principles and offer insights into space mission planning.
-
----
-
-This Markdown file is ready for GitHub, with clear sections for explanations, code, and post-simulation analysis. Save it as `payload_trajectories.md` and upload it with the Python script embedded as shown. When viewed on GitHub, the code block will be syntax-highlighted, and the equations will render nicely with proper formatting.
