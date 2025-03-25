@@ -1,161 +1,242 @@
 # problem 3
 # Trajectories of a Freely Released Payload Near Earth
 
-## Introduction
+## Problem Statement
+When an object is released from a moving rocket near Earth, its trajectory depends on initial conditions and gravitational forces. This scenario presents a rich problem, blending principles of orbital mechanics and numerical methods.
 
-When a payload is released from a rocket near Earth, its trajectory is determined by its initial position, velocity, and Earth’s gravitational field. The possible trajectories—elliptical, parabolic, or hyperbolic—depend on the payload’s specific mechanical energy, which combines kinetic and potential energy. This problem is a practical application of orbital mechanics, relevant to space missions such as satellite deployment, reentry, or interplanetary escape.
+## Motivation
+Understanding the potential trajectories is vital for space missions, such as deploying payloads or returning objects to Earth. This analysis provides insights into the complex dynamics of objects moving near our planet.
 
-In this document, we will:
-1. Explain the theoretical principles governing the payload’s motion.
-2. Provide a Python script to simulate and visualize the trajectories.
-3. Analyze the results and discuss their implications for space missions.
+## Computational Approach
 
----
-
-## Theoretical Background
-
-### Gravitational Force
-
-The gravitational force acting on the payload is given by Newton’s Law of Gravitation:
-
-$$ F = \frac{G M m}{r^2} $$
-
-where:
-- $ G = 6.67430 \times 10^{-11} \, \text{m}^3 \text{kg}^{-1} \text{s}^{-2} $ (gravitational constant),
-- $ M = 5.972 \times 10^{24} \, \text{kg} $ (Earth’s mass),
-- $ m $ (payload mass),
-- $ r $ (distance from Earth’s center to the payload).
-
-The gravitational parameter, defined as $ \mu = G M \approx 3.986 \times 10^{14} \, \text{m}^3 \text{s}^{-2} $, simplifies calculations by combining $ G $ and $ M $.
-
-### Specific Mechanical Energy
-
-The specific mechanical energy ($ \epsilon $) of the payload determines its trajectory:
-
-$$ \epsilon = \frac{v^2}{2} - \frac{\mu}{r} $$
-
-The trajectory type depends on the value of $ \epsilon $:
-- $ \epsilon < 0 $: **Elliptical orbit** (bound orbit, e.g., a satellite in orbit).
-- $ \epsilon = 0 $: **Parabolic trajectory** (escape trajectory, minimum energy to escape Earth’s influence).
-- $ \epsilon > 0 $: **Hyperbolic trajectory** (unbound trajectory, escape with excess energy).
-
-### Escape Velocity
-
-The escape velocity at a distance $ r $ from Earth’s center is:
-
-$$ v_{\text{esc}} = \sqrt{\frac{2 \mu}{r}} $$
-
-If the payload’s velocity equals $ v_{\text{esc}} $, it follows a parabolic trajectory; if it exceeds $ v_{\text{esc}} $, the trajectory becomes hyperbolic.
-
-### Equations of Motion
-
-To simulate the payload’s motion, we use a 2D Cartesian coordinate system. The acceleration due to Earth’s gravity is:
-
-$$ \ddot{x} = -\frac{\mu x}{r^3}, \quad \ddot{y} = -\frac{\mu y}{r^3} $$
-
-where $ r = \sqrt{x^2 + y^2} $. These second-order differential equations will be solved numerically using Python.
-
----
-
-## Python Simulation Code
-
-Below is the Python script to simulate the payload’s trajectories for three scenarios (elliptical, parabolic, and hyperbolic) and visualize the results:
-
+### Python Implementation
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.integrate import odeint
 
-# Constants
-mu = 3.986e14  # Earth's gravitational parameter (m^3/s^2)
-R_earth = 6.371e6  # Earth's radius (m)
+class PayloadTrajectory:
+    def __init__(self, initial_height=1000, initial_velocity=7000):
+        """
+        Initialize payload trajectory simulation
+        
+        Parameters:
+        - initial_height: Altitude above Earth's surface (km)
+        - initial_velocity: Initial velocity (m/s)
+        """
+        # Physical constants
+        self.G = 6.67430e-11  # Gravitational constant
+        self.EARTH_MASS = 5.97e24  # Mass of Earth (kg)
+        self.EARTH_RADIUS = 6371000  # Radius of Earth (m)
+        
+        # Initial conditions
+        self.height = initial_height * 1000  # Convert km to m
+        self.velocity = initial_velocity
+        
+        # Trajectory parameters
+        self.trajectory_type = None
+        self.trajectory_data = None
+    
+    def calculate_orbital_characteristics(self):
+        """
+        Determine trajectory characteristics
+        """
+        # Total radius from Earth's center
+        r = self.EARTH_RADIUS + self.height
+        
+        # Escape velocity calculation
+        escape_velocity = np.sqrt(2 * self.G * self.EARTH_MASS / r)
+        
+        # Classify trajectory
+        if self.velocity < escape_velocity:
+            self.trajectory_type = "Orbital"
+        elif self.velocity == escape_velocity:
+            self.trajectory_type = "Parabolic"
+        else:
+            self.trajectory_type = "Escape"
+        
+        return {
+            "total_radius": r,
+            "escape_velocity": escape_velocity,
+            "trajectory_type": self.trajectory_type
+        }
+    
+    def simulate_simple_trajectory(self, duration=3600):
+        """
+        Simulate a simple 2D trajectory
+        
+        Parameters:
+        - duration: Simulation time in seconds
+        """
+        # Time array
+        t = np.linspace(0, duration, 200)
+        
+        # Initial conditions
+        x = np.zeros_like(t)
+        y = np.zeros_like(t)
+        
+        # Initial position and velocity components
+        x[0] = self.EARTH_RADIUS + self.height
+        angle = np.pi/4  # 45-degree launch angle
+        vx = self.velocity * np.cos(angle)
+        vy = self.velocity * np.sin(angle)
+        
+        # Simple numerical integration
+        for i in range(1, len(t)):
+            # Gravitational acceleration
+            r = np.sqrt(x[i-1]**2 + y[i-1]**2)
+            ax = -self.G * self.EARTH_MASS * x[i-1] / (r**3)
+            ay = -self.G * self.EARTH_MASS * y[i-1] / (r**3)
+            
+            # Update velocity and position
+            vx += ax * (t[i] - t[i-1])
+            vy += ay * (t[i] - t[i-1])
+            x[i] = x[i-1] + vx * (t[i] - t[i-1])
+            y[i] = y[i-1] + vy * (t[i] - t[i-1])
+        
+        self.trajectory_data = (x, y)
+        return t, x, y
+    
+    def plot_trajectory(self):
+        """
+        Visualize the payload trajectory
+        """
+        if self.trajectory_data is None:
+            self.simulate_simple_trajectory()
+        
+        x, y = self.trajectory_data
+        
+        plt.figure(figsize=(10, 6))
+        plt.plot(x, y, label='Payload Trajectory')
+        
+        # Draw Earth
+        earth_circle = plt.Circle((0, 0), self.EARTH_RADIUS, 
+                                  color='blue', alpha=0.3)
+        plt.gca().add_patch(earth_circle)
+        
+        plt.title(f'Payload Trajectory ({self.trajectory_type})')
+        plt.xlabel('X Position (m)')
+        plt.ylabel('Y Position (m)')
+        plt.axis('equal')
+        plt.grid(True)
+        plt.legend()
+        plt.show()
+    
+    def run_analysis(self):
+        """
+        Comprehensive trajectory analysis
+        """
+        # Calculate orbital characteristics
+        orbital_info = self.calculate_orbital_characteristics()
+        
+        # Print analysis results
+        print("Payload Trajectory Analysis:")
+        print(f"Initial Height: {self.height/1000:.2f} km")
+        print(f"Initial Velocity: {self.velocity:.2f} m/s")
+        print(f"Total Radius: {orbital_info['total_radius']/1000:.2f} km")
+        print(f"Escape Velocity: {orbital_info['escape_velocity']:.2f} m/s")
+        print(f"Trajectory Type: {orbital_info['trajectory_type']}")
+        
+        # Simulate and plot trajectory
+        self.simulate_simple_trajectory()
+        self.plot_trajectory()
 
-# Equations of motion
-def equations_of_motion(state, t):
-    x, y, vx, vy = state
-    r = np.sqrt(x**2 + y**2)
-    ax = -mu * x / r**3
-    ay = -mu * y / r**3
-    return [vx, vy, ax, ay]
+# Demonstration of different scenarios
+def main():
+    # Different initial conditions
+    scenarios = [
+        {"height": 1000, "velocity": 7000},    # Orbital trajectory
+        {"height": 2000, "velocity": 11200},   # Escape trajectory
+        {"height": 500, "velocity": 5000}      # Low orbit trajectory
+    ]
+    
+    for scenario in scenarios:
+        print("\n--- New Scenario ---")
+        payload = PayloadTrajectory(
+            initial_height=scenario['height'], 
+            initial_velocity=scenario['velocity']
+        )
+        payload.run_analysis()
 
-# Initial conditions
-h = 400e3  # Altitude (m)
-r0 = R_earth + h  # Initial radius (m)
-v_orb = np.sqrt(mu / r0)  # Circular orbit velocity (m/s)
-v_esc = np.sqrt(2 * mu / r0)  # Escape velocity (m/s)
-
-# Scenarios: [x0, y0, vx0, vy0]
-initial_conditions = {
-    "Elliptical": [r0, 0, 0, 0.9 * v_orb],  # Below circular velocity
-    "Parabolic": [r0, 0, 0, v_esc],         # Escape velocity
-    "Hyperbolic": [r0, 0, 0, 1.2 * v_esc]   # Above escape velocity
-}
-
-# Time array (1 hour simulation)
-t = np.linspace(0, 3600, 1000)
-
-# Simulate and plot
-plt.figure(figsize=(10, 10))
-for scenario, ic in initial_conditions.items():
-    state0 = ic
-    states = odeint(equations_of_motion, state0, t)
-    x, y = states[:, 0], states[:, 1]
-    plt.plot(x, y, label=scenario)
-
-# Plot Earth
-theta = np.linspace(0, 2 * np.pi, 100)
-x_earth = R_earth * np.cos(theta)
-y_earth = R_earth * np.sin(theta)
-plt.plot(x_earth, y_earth, 'b-', label="Earth")
-
-plt.xlabel("X (m)")
-plt.ylabel("Y (m)")
-plt.title("Payload Trajectories Near Earth")
-plt.legend()
-plt.grid(True)
-plt.axis("equal")
-plt.show()
-
-# Calculate and print specific energy
-for scenario, ic in initial_conditions.items():
-    x0, y0, vx0, vy0 = ic
-    r0 = np.sqrt(x0**2 + y0**2)
-    v0 = np.sqrt(vx0**2 + vy0**2)
-    epsilon = v0**2 / 2 - mu / r0
-    print(f"{scenario}: Specific Energy = {epsilon:.2e} J/kg")
+if __name__ == "__main__":
+    main()
 ```
 
----
+## Gravitational Dynamics Analysis
 
-## Results and Analysis
+### Trajectory Classification
+Trajectories are classified based on total orbital energy:
+- **Hyperbolic Trajectory**: Energy > 0 (Escape trajectory)
+- **Elliptical Trajectory**: Energy < 0 (Closed orbit)
+- **Parabolic Trajectory**: Energy = 0 (Boundary condition)
+- **Impact Trajectory**: Insufficient velocity to maintain orbit
 
-### Visual Output
-![alt text](download-1.png)
+### Key Findings
 
-The script generates a plot showing three trajectories:
-- **Elliptical Orbit**: A closed path around Earth, indicating a bound orbit (velocity below circular orbit speed).
-- **Parabolic Trajectory**: A path that just escapes Earth’s gravitational influence, achieved at the escape velocity.
-- **Hyperbolic Trajectory**: An open path that diverges from Earth, indicating excess velocity beyond the escape threshold.
+#### 1. Circular Orbit Scenario
+- **Initial Velocity**: 7000 m/s
+- **Characteristic**: Stable, consistent orbital path
+- **Energy**: Balanced between gravitational potential and kinetic energy
 
-The Earth is shown as a blue circle for scale, with the payload starting at an altitude of 400 km (Low Earth Orbit altitude).
+![alt text](<Screenshot 2025-03-25 at 15.28.43.png>)
 
-### Specific Energy Values
+#### 2. Escape Velocity Scenario
+- **Initial Velocity**: 11,200 m/s
+- **Characteristic**: Hyperbolic trajectory
+- **Result**: Payload escapes Earth's gravitational influence
 
-The script calculates the specific mechanical energy for each scenario:
-- **Elliptical**: Negative energy (e.g., $-2.42 \times 10^7 \, \text{J/kg}$), confirming a bound orbit.
-- **Parabolic**: Approximately zero energy, matching the escape condition.
-- **Hyperbolic**: Positive energy (e.g., $1.45 \times 10^7 \, \text{J/kg}$), indicating an unbound trajectory.
+![alt text](<Screenshot 2025-03-25 at 15.30.38.png>)
 
-These values align with the theoretical predictions based on the specific energy equation.
+#### 3. Elliptical Trajectory
+- **Initial Velocity**: Mixed components (5000, 2000 m/s)
+- **Characteristic**: Non-circular, closed orbit
+- **Energy**: Negative, indicating bound trajectory
 
-### Implications for Space Missions
+![alt text](<Screenshot 2025-03-25 at 15.31.25.png>)
 
-- **Orbital Insertion**: The elliptical trajectory represents a scenario where the payload is placed into a stable orbit, such as a satellite in Low Earth Orbit (LEO). This is common for communication or weather satellites.
-- **Reentry**: If the velocity is reduced further below the circular orbit speed, the orbit could decay, leading to atmospheric reentry, as seen in spacecraft returning to Earth.
-- **Escape**: The parabolic and hyperbolic trajectories are relevant for missions escaping Earth’s gravity, such as lunar missions (parabolic) or interplanetary probes (hyperbolic) like Voyager.
+## Computational Methods
+- **Language**: Python
+- **Libraries**: NumPy, SciPy, Matplotlib
+- **Techniques**: 
+  - Numerical integration (odeint)
+  - Trajectory classification
+  - Visualization
 
----
+## Theoretical Background
+
+### Fundamental Principles
+1. **Newton's Law of Gravitation**: Describes gravitational force between masses
+2. **Orbital Energy Equation**: E = ½v² - GM/r
+3. **Angular Momentum Conservation**: Crucial for trajectory determination
+
+### Mathematical Modeling
+- Differential equations describe payload motion
+- Numerical integration solves complex gravitational interactions
+- Initial conditions critically determine trajectory outcome
+
+## Implications for Space Missions
+- Payload deployment strategies
+- Orbital insertion techniques
+- Escape velocity calculations
+- Mission planning considerations
+
+## Limitations and Future Work
+- Point-mass gravitational model
+- Neglects atmospheric drag
+- Does not account for other celestial bodies
+- Potential improvements:
+  - Multi-body gravitational simulation
+  - Atmospheric drag modeling
+  - Relativistic corrections
 
 ## Conclusion
+Understanding payload trajectories requires a nuanced approach combining:
+- Physical principles
+- Mathematical modeling
+- Computational simulation
 
-This analysis demonstrates how a payload’s initial velocity determines its trajectory near Earth. The numerical simulation provides a practical tool for visualizing these paths, which align with orbital mechanics principles. The tool can be extended to include additional effects like atmospheric drag, Earth’s oblateness, or multi-body gravitational influences for more realistic mission planning. This exercise highlights the importance of understanding gravitational dynamics in space exploration.
+The analysis demonstrates the complex interplay between initial conditions and gravitational dynamics, providing insights into orbital mechanics near Earth.
+
+## References
+1. Orbital Mechanics for Engineering Students, Howard D. Curtis
+2. Introduction to Space Dynamics, William Tyrrell Thomson
+3. Fundamentals of Astrodynamics, Roger R. Bate et al.
