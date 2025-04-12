@@ -17,6 +17,7 @@ This document presents the results of an experiment to measure the acceleration 
 - Measuring tool resolution: 0.001 m (1 mm)
 - Length uncertainty (ΔL): 0.0005 m (0.5 mm)
 
+
 ### Time Measurements for 10 Oscillations (T₁₀)
 
 | Trial | Time for 10 oscillations (s) |
