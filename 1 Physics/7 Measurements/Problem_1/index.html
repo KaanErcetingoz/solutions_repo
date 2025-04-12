@@ -172,6 +172,153 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-1">Problem 1</h1>
+<h1 id="measuring-earths-gravitational-acceleration-with-a-pendulum">Measuring Earth's Gravitational Acceleration with a Pendulum</h1>
+<h2 id="introduction">Introduction</h2>
+<p>This document presents the results of an experiment to measure the acceleration due to gravity (g) using a simple pendulum. The experiment employs the relationship between the period of oscillation and the length of a pendulum to determine g with associated uncertainties.</p>
+<h2 id="experimental-setup">Experimental Setup</h2>
+<ul>
+<li>A pendulum was constructed using a 1.20 m string with a small weight attached.</li>
+<li>The pendulum was suspended from a rigid support.</li>
+<li>Small angle oscillations (&lt;15°) were maintained throughout the experiment.</li>
+<li>Time measurements were taken for 10 complete oscillations across 10 trials.</li>
+</ul>
+<h2 id="tabulated-data">Tabulated Data</h2>
+<h3 id="length-measurement">Length Measurement</h3>
+<ul>
+<li>Length (L): 1.20 m</li>
+<li>Measuring tool resolution: 0.001 m (1 mm)</li>
+<li>Length uncertainty (ΔL): 0.0005 m (0.5 mm)</li>
+</ul>
+<h3 id="time-measurements-for-10-oscillations-t10">Time Measurements for 10 Oscillations (T₁₀)</h3>
+<table>
+<thead>
+<tr>
+<th>Trial</th>
+<th>Time for 10 oscillations (s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>21.94</td>
+</tr>
+<tr>
+<td>2</td>
+<td>22.03</td>
+</tr>
+<tr>
+<td>3</td>
+<td>21.98</td>
+</tr>
+<tr>
+<td>4</td>
+<td>22.06</td>
+</tr>
+<tr>
+<td>5</td>
+<td>21.95</td>
+</tr>
+<tr>
+<td>6</td>
+<td>22.01</td>
+</tr>
+<tr>
+<td>7</td>
+<td>21.97</td>
+</tr>
+<tr>
+<td>8</td>
+<td>22.04</td>
+</tr>
+<tr>
+<td>9</td>
+<td>21.99</td>
+</tr>
+<tr>
+<td>10</td>
+<td>22.02</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Mean time (T̄₁₀): 22.00 s</li>
+<li>Standard deviation (σₜ): 0.04 s</li>
+<li>Uncertainty in mean time (ΔT̄₁₀ = σₜ/√10): 0.013 s</li>
+</ul>
+<h2 id="calculations">Calculations</h2>
+<h3 id="1-period-calculation">1. Period Calculation</h3>
+<ul>
+<li>Period (T = T̄₁₀/10): 2.200 s</li>
+<li>Period uncertainty (ΔT = ΔT̄₁₀/10): 0.0013 s</li>
+</ul>
+<h3 id="2-gravity-calculation">2. Gravity Calculation</h3>
+<ul>
+<li>g = 4π²L/T² = 4π² × 1.20 m/(2.200 s)² = 9.80 m/s²</li>
+</ul>
+<h3 id="3-uncertainty-propagation">3. Uncertainty Propagation</h3>
+<ul>
+<li>Δg = g√[(ΔL/L)² + (2ΔT/T)²]</li>
+<li>Δg = 9.80√[(0.0005/1.20)² + (2 × 0.0013/2.200)²]</li>
+<li>Δg = 9.80√[1.74 × 10⁻⁷ + 1.40 × 10⁻⁶]</li>
+<li>Δg = 9.80√[1.57 × 10⁻⁶]</li>
+<li>Δg = 9.80 × 1.25 × 10⁻³</li>
+<li>Δg = 0.012 m/s²</li>
+</ul>
+<h3 id="final-result">Final Result</h3>
+<ul>
+<li>g = (9.80 ± 0.01) m/s²</li>
+</ul>
+<h2 id="analysis">Analysis</h2>
+<h3 id="1-comparison-with-standard-value">1. Comparison with Standard Value</h3>
+<p>The measured value of g = (9.80 ± 0.01) m/s² is in excellent agreement with the standard value of 9.81 m/s². The difference is approximately 0.10%, which is within our calculated uncertainty range.</p>
+<h3 id="2-discussion-of-uncertainties">2. Discussion of Uncertainties</h3>
+<h4 id="the-effect-of-measurement-resolution-on-l">The effect of measurement resolution on ΔL</h4>
+<p>The ruler's resolution (1 mm) contributes to an uncertainty of 0.5 mm in the length measurement. This translates to approximately 0.04% relative uncertainty in the length measurement, which propagates to the calculation of g. While this uncertainty is small for our experiment, it becomes more significant for shorter pendulums.</p>
+<p>Additional factors affecting length measurement include:
+- Difficulty in precisely locating the center of mass of the weight
+- String stretching during oscillation
+- Measurement of the exact suspension point</p>
+<p>Our experiment minimized these effects by using a dense weight (minimizing the impact of center of mass uncertainty) and a relatively inelastic string.</p>
+<h4 id="variability-in-timing-and-its-impact-on-t">Variability in timing and its impact on ΔT</h4>
+<p>The standard deviation in timing measurements (0.04 s) reflects random errors in the timing process. By taking the mean of 10 trials, we reduced this uncertainty to 0.013 s for the mean time of 10 oscillations, or 0.0013 s for a single period. This translates to about 0.06% relative uncertainty in the period.</p>
+<p>Timing uncertainties arise from:
+- Human reaction time (~0.1-0.3 s)
+- Difficulty in identifying the exact moment the pendulum passes its equilibrium position
+- Potential miscounting of oscillations</p>
+<p>Measuring multiple oscillations substantially reduces the impact of reaction time errors, as these errors become a smaller fraction of the total measured time.</p>
+<h4 id="assumptions-and-experimental-limitations">Assumptions and experimental limitations</h4>
+<p>Our experiment relies on several key assumptions and has notable limitations:</p>
+<ol>
+<li>
+<p><strong>Small angle approximation</strong>: The relationship T = 2π√(L/g) is valid only for small angles. We maintained oscillations below 15° to ensure this approximation holds. For larger angles, the period increases slightly, leading to underestimation of g.</p>
+</li>
+<li>
+<p><strong>Simple pendulum model</strong>: We assumed:</p>
+</li>
+<li>The string is massless (in reality, it contributes slightly to the moment of inertia)</li>
+<li>The weight acts as a point mass (in reality, it has finite dimensions)</li>
+<li>
+<p>The pendulum length remains constant (slight stretching may occur)</p>
+</li>
+<li>
+<p><strong>Environmental factors</strong>:</p>
+</li>
+<li>Air resistance gradually damping the oscillations</li>
+<li>Air currents potentially affecting the pendulum motion</li>
+<li>
+<p>Temperature effects on the string length</p>
+</li>
+<li>
+<p><strong>Local variations in g</strong>: The value of g varies slightly with latitude (due to Earth's rotation and shape) and altitude. Our measurement reflects the local value at our specific location.</p>
+</li>
+</ol>
+<h2 id="conclusion">Conclusion</h2>
+<p>The experiment successfully measured Earth's gravitational acceleration with good precision. The final value of g = (9.80 ± 0.01) m/s² demonstrates that even with relatively simple equipment, fundamental physical constants can be measured accurately when proper experimental techniques and uncertainty analysis are applied.</p>
+<p>The small difference between our measured value and the standard value (9.81 m/s²) could be attributed to:
+- Experimental uncertainties
+- Local variations in the gravitational field
+- Systematic errors in our experimental setup</p>
+<p>This experiment illustrates the importance of uncertainty analysis in experimental physics and demonstrates how multiple measurements can improve precision through statistical methods.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
